@@ -6,5 +6,7 @@ import { Component } from '@angular/core';
   styleUrls: ['./recipe-book.component.css']
 })
 export class RecipeBookComponent {
+  recipes = [];
+
 
 }
