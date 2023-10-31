@@ -6,6 +6,7 @@ import { RecipeBookModule } from './recipe-book/recipe-book.module';
 import { ShoppingListModule } from './shopping-list/shopping-list.module';
 import { HeaderModule } from './header/header.module';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -16,6 +17,7 @@ import { CommonModule } from '@angular/common';
     BrowserModule,
     RecipeBookModule,
     ShoppingListModule,
+    FormsModule,
     HeaderModule
   ],
   providers: [],
