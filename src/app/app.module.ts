@@ -7,6 +7,7 @@ import { ShoppingListModule } from './shopping-list/shopping-list.module';
 import { HeaderModule } from './header/header.module';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { SharedModule } from './shared/shared.module';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { FormsModule } from '@angular/forms';
     RecipeBookModule,
     ShoppingListModule,
     FormsModule,
-    HeaderModule
+    HeaderModule,
+    SharedModule
   ],
   providers: [],
   bootstrap: [AppComponent]
