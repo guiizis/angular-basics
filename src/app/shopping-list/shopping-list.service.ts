@@ -5,7 +5,7 @@ import { Ingredients } from '../shared/ingredients.interface';
   providedIn: 'root'
 })
 export class ShoppinListgService {
-
+  ingridientsChanged = new EventEmitter<Ingredients[]>()
   private _ingredients: Ingredients[] = [
     {
       name: 'Apples',
@@ -24,6 +24,7 @@ export class ShoppinListgService {
   constructor() { }
 
   addIngridient(ingridient: Ingredients) {
-    this._ingredients.push(ingridient)
+    this._ingredients.push(ingridient);
+    this.ingridientsChanged.emit(this._ingredients.slice());
   }
 }
