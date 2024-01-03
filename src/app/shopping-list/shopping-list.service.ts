@@ -27,4 +27,9 @@ export class ShoppinListgService {
     this._ingredients.push(ingridient);
     this.ingridientsChanged.emit(this._ingredients.slice());
   }
+
+  addIngridients(ingridient: Ingredients[]) {
+    this._ingredients.push(...ingridient);
+    this.ingridientsChanged.emit(this._ingredients.slice());
+  }
 }
