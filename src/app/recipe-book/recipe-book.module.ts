@@ -8,6 +8,7 @@ import { FormsModule } from '@angular/forms';
 import { SharedModule } from '../shared/shared.module';
 import { RecipeStartComponent } from './recipe-start/recipe-start.component';
 import { RouterModule } from '@angular/router';
+import { RecipeEditComponent } from './recipe-edit/recipe-edit.component';
 
 @NgModule({
   imports: [
@@ -21,7 +22,8 @@ import { RouterModule } from '@angular/router';
     RecipeDetailComponent,
     RecipeItemComponent,
     RecipeListComponent,
-    RecipeStartComponent
+    RecipeStartComponent,
+    RecipeEditComponent
   ],
   exports: [
     RecipeBookComponent,

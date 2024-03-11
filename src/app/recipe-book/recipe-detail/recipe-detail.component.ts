@@ -3,7 +3,7 @@ import { Recipe } from '../recipe.interface';
 import { Ingredients } from 'src/app/shared/ingredients.interface';
 import { ShoppinListgService } from 'src/app/shopping-list/shopping-list.service';
 import { RecipeService } from '../recipe.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 
 @Component({
@@ -14,17 +14,19 @@ import { Subscription } from 'rxjs';
 export class RecipeDetailComponent implements OnInit, OnDestroy{
   recipe: Recipe
   paramsSubscription: Subscription
+  id: number
 
   constructor(
     private shoppingListService: ShoppinListgService,
     private recipeService: RecipeService,
+    private router: Router,
     private route: ActivatedRoute
     ) {}
 
   ngOnInit(): void {
     this.paramsSubscription = this.route.params.subscribe(data => {
-      const { id } = data;
-      this.recipe = this.recipeService.getRecipe(id);
+      this.id = data['id'];
+      this.recipe = this.recipeService.getRecipe(this.id);
     })
   }
 
@@ -34,5 +36,9 @@ export class RecipeDetailComponent implements OnInit, OnDestroy{
 
   onAddShoppingItems(ingridients: Ingredients[]): void {
     this.shoppingListService.addIngridients(ingridients)
+  }
+
+  onEditRecipe() {
+    this.router.navigate(['edit'], {relativeTo: this.route})
   }
 }
