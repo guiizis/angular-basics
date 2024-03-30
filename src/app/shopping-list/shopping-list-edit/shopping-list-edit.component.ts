@@ -32,7 +32,7 @@ export class ShoppingListEditComponent {
     )
   }
 
-  addIngredient(form: NgForm) {
+  onSubmit(form: NgForm) {
     const {name, amount} = form.value
 
     const newIngredient: Ingredients = {name,amount}
@@ -40,6 +40,13 @@ export class ShoppingListEditComponent {
     this.editMode ?
       this.shoppingListService.updateIngredient(this.editItemIndex, newIngredient) :
       this.shoppingListService.addIngredient(newIngredient)
+
+    this.formReset()
+  }
+
+  formReset() {
+    this.editMode = false
+    this.form.reset()
   }
 
   ngOnDestroy() {
