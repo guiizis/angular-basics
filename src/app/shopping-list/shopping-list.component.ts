@@ -24,4 +24,8 @@ export class ShoppingListComponent {
   ngOnDestroy() {
     this.ingridientsChangedSubscription.unsubscribe()
   }
+
+  onEditItem(ingridient: Ingredients) {
+
+  }
 }
