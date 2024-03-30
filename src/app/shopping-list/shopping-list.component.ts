@@ -25,7 +25,7 @@ export class ShoppingListComponent {
     this.ingridientsChangedSubscription.unsubscribe()
   }
 
-  onEditItem(ingridient: Ingredients) {
-
+  onEditItem(index: number) {
+    this.shoppingListService.startEditing.next(index)
   }
 }

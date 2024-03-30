@@ -7,6 +7,7 @@ import { Subject } from 'rxjs';
 })
 export class ShoppinListgService {
   ingridientsChanged = new Subject<Ingredients[]>()
+  startEditing = new Subject<number>()
   private _ingredients: Ingredients[] = [
     {
       name: 'Apples',
@@ -20,6 +21,10 @@ export class ShoppinListgService {
 
   get ingridients(): Ingredients[] {
     return this._ingredients.slice();
+  }
+
+  getIngridient(index: number): Ingredients {
+    return this.ingridients[index];
   }
 
   constructor() { }
