@@ -1,6 +1,6 @@
 <div class="row">
   <div class="col-xs-12">
-    <form action="">
+    <form action="" (ngSubmit)="addIngridient(form)" #form="ngForm">
       <div class="row">
         <div class="col-sm-5 form-group">
           <label for="name">Name</label>
@@ -9,7 +9,8 @@
           name="name"
           id="name"
           class="form-control"
-          #nameInput>
+          ngModel
+          >
         </div>
         <div class="col-sm-2 form-group">
           <label for="amount">Amount</label>
@@ -18,12 +19,13 @@
           name="amount"
           id="amount"
           class="form-control"
-          #amountInput>
+          ngModel
+          >
         </div>
       </div>
       <div class="row">
         <div class="col-xs-12">
-          <button class="btn btn-success" type="submit" (click)="addIngridient()">Add</button>
+          <button class="btn btn-success" type="submit">Add</button>
           <button class="btn btn-danger" type="button">Delete</button>
           <button class="btn btn-warning" type="button">Clear</button>
         </div>
