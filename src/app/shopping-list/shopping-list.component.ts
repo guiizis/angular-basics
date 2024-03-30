@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Ingredients } from '../shared/ingredients.interface';
-import { ShoppinListgService } from './shopping-list.service';
+import { ShoppingListgService } from './shopping-list.service';
 import { Subscription } from 'rxjs';
 
 @Component({
@@ -12,7 +12,7 @@ export class ShoppingListComponent {
   ingredients: Ingredients[];
   ingridientsChangedSubscription: Subscription
 
-  constructor(private shoppingListService: ShoppinListgService) {}
+  constructor(private shoppingListService: ShoppingListgService) {}
 
   ngOnInit() {
     this.ingredients = this.shoppingListService.ingridients

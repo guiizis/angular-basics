@@ -1,6 +1,6 @@
 import { Component, ViewChild } from '@angular/core';
 import { Ingredients } from 'src/app/shared/ingredients.interface';
-import { ShoppinListgService } from '../shopping-list.service';
+import { ShoppingListgService } from '../shopping-list.service';
 import { NgForm } from '@angular/forms';
 import { Subscription } from 'rxjs';
 
@@ -16,14 +16,14 @@ export class ShoppingListEditComponent {
   editItemIndex: number
   editedItem: Ingredients
 
-  constructor(private shoppinListService: ShoppinListgService) {}
+  constructor(private shoppingListService: ShoppingListgService) {}
 
   ngOnInit() {
-    this.subscription = this.shoppinListService.startEditing.subscribe(
+    this.subscription = this.shoppingListService.startEditing.subscribe(
       (index: number) => {
         this.editItemIndex = index
         this.editMode = true
-        this.editedItem = this.shoppinListService.getIngridient(this.editItemIndex)
+        this.editedItem = this.shoppingListService.getIngredient(this.editItemIndex)
         this.form.setValue({
           name: this.editedItem.name,
           amount: this.editedItem.amount,
@@ -32,12 +32,14 @@ export class ShoppingListEditComponent {
     )
   }
 
-  addIngridient(form: NgForm) {
+  addIngredient(form: NgForm) {
     const {name, amount} = form.value
 
-    const newIngridient: Ingredients = {name,amount}
+    const newIngredient: Ingredients = {name,amount}
 
-    this.shoppinListService.addIngridient(newIngridient);
+    this.editMode ?
+      this.shoppingListService.updateIngredient(this.editItemIndex, newIngredient) :
+      this.shoppingListService.addIngredient(newIngredient)
   }
 
   ngOnDestroy() {
