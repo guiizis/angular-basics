@@ -41,6 +41,11 @@ export class ShoppingListgService {
 
   updateIngredient(index: number, newIngridient: Ingredients): void {
     this._ingredients[index] = newIngridient
-    this.ingridientsChanged.next(this._ingredients.slice());
+    this.ingridientsChanged.next(this._ingredients.slice())
+  }
+
+  deleteIngredient(index: number): void {
+    this._ingredients.splice(index, 1)
+    this.ingridientsChanged.next(this._ingredients.slice())
   }
 }

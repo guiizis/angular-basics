@@ -41,12 +41,17 @@ export class ShoppingListEditComponent {
       this.shoppingListService.updateIngredient(this.editItemIndex, newIngredient) :
       this.shoppingListService.addIngredient(newIngredient)
 
-    this.formReset()
+    this.onClear()
   }
 
-  formReset() {
+  onClear() {
     this.editMode = false
     this.form.reset()
+  }
+
+  onDelete() {
+    this.onClear()
+    this.shoppingListService.deleteIngredient(this.editItemIndex)
   }
 
   ngOnDestroy() {
