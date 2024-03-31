@@ -6,7 +6,7 @@ import { RecipeBookModule } from './recipe-book/recipe-book.module';
 import { ShoppingListModule } from './shopping-list/shopping-list.module';
 import { HeaderModule } from './header/header.module';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from './shared/shared.module';
 import { AppRoutingModule } from './app-routing.module';
 
@@ -22,6 +22,7 @@ import { AppRoutingModule } from './app-routing.module';
     FormsModule,
     HeaderModule,
     SharedModule,
+    ReactiveFormsModule,
     AppRoutingModule
   ],
   providers: [],

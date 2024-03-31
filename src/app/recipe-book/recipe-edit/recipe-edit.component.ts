@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormArray, FormControl, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Params } from '@angular/router';
 import { RecipeService } from '../recipe.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-recipe-edit',
@@ -12,11 +13,12 @@ export class RecipeEditComponent implements OnInit {
   id: number
   editMode: boolean
   recipeForm: FormGroup
+  routeSubscription: Subscription
 
   constructor(private route: ActivatedRoute, private recipeService: RecipeService) {}
 
   ngOnInit(): void {
-    this.route.params.subscribe(
+    this.routeSubscription = this.route.params.subscribe(
       (params: Params) => {
         this.id = +params['id']
         this.editMode = params['id'] != null;
@@ -26,20 +28,44 @@ export class RecipeEditComponent implements OnInit {
   }
 
   private initForm() {
+    const recipe = this.recipeService.getRecipe(this.id)
     let recipeName = ''
     let imgPath =  ''
     let description =  ''
+    let recipeIngredients = new FormArray([])
 
     if (this.editMode) {
-      recipeName = this.recipeService.getRecipe(this.id).name
-      imgPath = this.recipeService.getRecipe(this.id).imagePath
-      description = this.recipeService.getRecipe(this.id).description
+      recipeName = recipe.name
+      imgPath = recipe.imagePath
+      description = recipe.description
+
+      if (recipe.ingredients) {
+        for (let ingredients of recipe.ingredients) {
+          recipeIngredients.push(new FormGroup({
+            'name': new FormControl(ingredients.name),
+            'amount': new FormControl(ingredients.amount),
+          }))
+        }
+      }
     }
 
     this.recipeForm = new FormGroup({
       'name': new FormControl(recipeName),
       'imagePath': new FormControl(imgPath),
       'description': new FormControl(description),
+      'ingredients': recipeIngredients
     })
+  }
+
+  get controls() {
+    return (<FormArray>this.recipeForm.get('ingredients')).controls;
+  }
+
+  onSubmit() {
+    console.log({...this.recipeForm.value})
+  }
+
+  ngOnDestroy() {
+    this.routeSubscription.unsubscribe()
   }
 }

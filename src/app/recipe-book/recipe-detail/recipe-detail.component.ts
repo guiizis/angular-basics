@@ -34,8 +34,8 @@ export class RecipeDetailComponent implements OnInit, OnDestroy{
     this.paramsSubscription.unsubscribe();
   }
 
-  onAddShoppingItems(ingridients: Ingredients[]): void {
-    this.shoppingListService.addIngridients(ingridients)
+  onAddShoppingItems(ingredients: Ingredients[]): void {
+    this.shoppingListService.addingredients(ingredients)
   }
 
   onEditRecipe() {

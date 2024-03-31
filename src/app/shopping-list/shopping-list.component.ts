@@ -10,19 +10,19 @@ import { Subscription } from 'rxjs';
 })
 export class ShoppingListComponent {
   ingredients: Ingredients[];
-  ingridientsChangedSubscription: Subscription
+  ingredientsChangedSubscription: Subscription
 
   constructor(private shoppingListService: ShoppingListgService) {}
 
   ngOnInit() {
-    this.ingredients = this.shoppingListService.ingridients
-    this.ingridientsChangedSubscription = this.shoppingListService.ingridientsChanged.subscribe((ingridients: Ingredients[]) =>{
-      this.ingredients = ingridients
+    this.ingredients = this.shoppingListService.ingredients
+    this.ingredientsChangedSubscription = this.shoppingListService.ingredientsChanged.subscribe((ingredients: Ingredients[]) =>{
+      this.ingredients = ingredients
     });
   }
 
   ngOnDestroy() {
-    this.ingridientsChangedSubscription.unsubscribe()
+    this.ingredientsChangedSubscription.unsubscribe()
   }
 
   onEditItem(index: number) {
