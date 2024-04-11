@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Recipe } from '../recipe.interface';
 import { Ingredients } from 'src/app/shared/ingredients.interface';
-import { ShoppingListgService } from 'src/app/shopping-list/shopping-list.service';
+import { ShoppingListService } from 'src/app/shopping-list/shopping-list.service';
 import { RecipeService } from '../recipe.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
@@ -17,7 +17,7 @@ export class RecipeDetailComponent implements OnInit, OnDestroy{
   id: number
 
   constructor(
-    private shoppingListService: ShoppingListgService,
+    private shoppingListService: ShoppingListService,
     private recipeService: RecipeService,
     private router: Router,
     private route: ActivatedRoute

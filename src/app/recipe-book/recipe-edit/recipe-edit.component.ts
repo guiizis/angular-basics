@@ -3,6 +3,7 @@ import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Params } from '@angular/router';
 import { RecipeService } from '../recipe.service';
 import { Subscription } from 'rxjs';
+import { Recipe } from '../recipe.interface';
 
 @Component({
   selector: 'app-recipe-edit',
@@ -15,7 +16,7 @@ export class RecipeEditComponent implements OnInit {
   recipeForm: FormGroup
   routeSubscription: Subscription
 
-  constructor(private route: ActivatedRoute, private recipeService: RecipeService) {}
+  constructor(private route: ActivatedRoute, private recipeService: RecipeService) { }
 
   ngOnInit(): void {
     this.routeSubscription = this.route.params.subscribe(
@@ -30,8 +31,8 @@ export class RecipeEditComponent implements OnInit {
   private initForm() {
     const recipe = this.recipeService.getRecipe(this.id)
     let recipeName = ''
-    let imgPath =  ''
-    let description =  ''
+    let imgPath = ''
+    let description = ''
     let recipeIngredients = new FormArray([])
 
     if (this.editMode) {
@@ -62,13 +63,17 @@ export class RecipeEditComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log({...this.recipeForm.value})
+    if (this.editMode) {
+      this.recipeService.updateRecipe(this.id, this.recipeForm.value)
+    } else {
+      this.recipeService.addRecipe(this.recipeForm.value)
+    }
   }
 
   onAddIngredient() {
     (<FormArray>this.recipeForm.get('ingredients')).push(new FormGroup({
       'name': new FormControl(null, [Validators.required]),
-      'amount': new FormControl(null,[Validators.required, Validators.pattern(/^[1-9]+[0-9]*$/)])
+      'amount': new FormControl(null, [Validators.required, Validators.pattern(/^[1-9]+[0-9]*$/)])
     }))
   }
 

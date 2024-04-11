@@ -5,7 +5,7 @@ import { Subject } from 'rxjs'
 @Injectable({
   providedIn: 'root'
 })
-export class ShoppingListgService {
+export class ShoppingListService {
   ingredientsChanged = new Subject<Ingredients[]>()
   startEditing = new Subject<number>()
   private _ingredients: Ingredients[] = [

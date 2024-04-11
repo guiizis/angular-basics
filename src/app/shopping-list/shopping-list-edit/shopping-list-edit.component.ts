@@ -1,6 +1,6 @@
 import { Component, ViewChild } from '@angular/core';
 import { Ingredients } from 'src/app/shared/ingredients.interface';
-import { ShoppingListgService } from '../shopping-list.service';
+import { ShoppingListService } from '../shopping-list.service';
 import { NgForm } from '@angular/forms';
 import { Subscription } from 'rxjs';
 
@@ -16,7 +16,7 @@ export class ShoppingListEditComponent {
   editItemIndex: number
   editedItem: Ingredients
 
-  constructor(private shoppingListService: ShoppingListgService) {}
+  constructor(private shoppingListService: ShoppingListService) {}
 
   ngOnInit() {
     this.subscription = this.shoppingListService.startEditing.subscribe(
