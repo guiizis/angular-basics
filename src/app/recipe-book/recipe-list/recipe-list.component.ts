@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Recipe } from '../recipe.interface';
 import { RecipeService } from '../recipe.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-recipe-list',
@@ -10,6 +11,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 export class RecipeListComponent {
   recipes: Recipe[]
+  recipeSubscription: Subscription
 
   constructor(
     private recipeService: RecipeService,
@@ -18,7 +20,7 @@ export class RecipeListComponent {
     ){ }
 
   ngOnInit() {
-    this.recipeService.recipeChanged.subscribe((recipes) => {
+    this.recipeSubscription = this.recipeService.recipeChanged.subscribe((recipes) => {
       this.recipes = recipes
     })
 
@@ -27,6 +29,10 @@ export class RecipeListComponent {
 
   onNewRecipe() {
     this.router.navigate(['new'], {relativeTo: this.route})
+  }
+
+  onDestroy() {
+    this.recipeSubscription.unsubscribe()
   }
 
 }
