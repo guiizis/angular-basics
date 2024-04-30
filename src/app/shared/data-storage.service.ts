@@ -3,7 +3,7 @@ import { Injectable } from "@angular/core"
 import { RecipeService } from "../recipe-book/recipe.service"
 import { environment } from "src/environments/environment"
 import { Recipe } from "../recipe-book/recipe.interface"
-import { Observable } from "rxjs"
+import { Observable, map } from "rxjs"
 
 @Injectable({
   providedIn: 'root'
@@ -21,9 +21,20 @@ export class DataStorageService {
   }
 
   fetchRecipes() {
-    this.http.get<Recipe[]>(environment.fireBaseUrlRecipes).subscribe(data => {
-      this.recipeService.setRecipes(data)
-    })
+    this.http.get<Recipe[]>(environment.fireBaseUrlRecipes)
+      .pipe(
+        map(data => {
+          return data.map(recipes => {
+            return {
+              ...recipes,
+              ingredients: recipes.ingredients ? recipes.ingredients : []
+            }
+          })
+        }
+        )
+      ).subscribe(data => {
+        this.recipeService.setRecipes(data)
+      })
   }
 
 }
