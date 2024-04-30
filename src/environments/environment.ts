@@ -3,7 +3,8 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  fireBaseUrl: 'https://ng-complete-guide-9da11-default-rtdb.firebaseio.com/posts.json',
+  fireBaseUrlPost: 'https://ng-complete-guide-9da11-default-rtdb.firebaseio.com/posts.json',
+  fireBaseUrlRecipes: 'https://ng-complete-guide-9da11-default-rtdb.firebaseio.com/recipes.json',
   production: false
 };
 
