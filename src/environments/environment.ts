@@ -5,7 +5,8 @@
 export const environment = {
   fireBaseUrlPost: 'https://ng-complete-guide-9da11-default-rtdb.firebaseio.com/posts.json',
   fireBaseUrlRecipes: 'https://ng-complete-guide-9da11-default-rtdb.firebaseio.com/recipes.json',
-  fireBaseAuth: 'https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyBjVlfukuwOVifu0AkZaJWEXHWR-ZIBNLw',
+  fireBaseAuthSignIn: 'https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyBjVlfukuwOVifu0AkZaJWEXHWR-ZIBNLw',
+  fireBaseAuthSignUp: 'https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyBjVlfukuwOVifu0AkZaJWEXHWR-ZIBNLw',
   production: false
 };
 
