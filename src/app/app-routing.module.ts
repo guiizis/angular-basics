@@ -6,6 +6,7 @@ import { RecipeStartComponent } from './recipe-book/recipe-start/recipe-start.co
 import { RecipeDetailComponent } from './recipe-book/recipe-detail/recipe-detail.component';
 import { RecipeEditComponent } from './recipe-book/recipe-edit/recipe-edit.component';
 import { RecipesResolverService } from './recipe-book/recipe-resolver.service';
+import { AuthComponent } from './auth/auth.component';
 
 const routes: Routes = [
   {
@@ -41,6 +42,10 @@ const routes: Routes = [
     path: 'shopping-list',
     component: ShoppingListComponent
   },
+  {
+    path: 'auth',
+    component: AuthComponent
+  }
 ]
 
 
