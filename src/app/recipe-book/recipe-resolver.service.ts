@@ -3,6 +3,7 @@ import { ActivatedRouteSnapshot, ResolveFn, RouterStateSnapshot } from "@angular
 import { Recipe } from "./recipe.interface";
 import { DataStorageService } from "../shared/data-storage.service";
 import { Observable } from "rxjs";
+import { RecipeService } from "./recipe.service";
 
 @Injectable({
   providedIn: 'root'
@@ -10,10 +11,15 @@ import { Observable } from "rxjs";
 //@ts-ignore-next-line
 export class RecipesResolverService implements ResolveFn<Recipe[]> {
 
-  constructor(private dataStorageService: DataStorageService){}
+  constructor(private dataStorageService: DataStorageService, private recipeService: RecipeService) { }
 
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Recipe[] | Observable<Recipe[]> | Promise<Recipe[]> {
-    return this.dataStorageService.fetchRecipes()
+    const recipes = this.recipeService.recipes
+
+    if (recipes.length === 0) {
+      return this.dataStorageService.fetchRecipes()
+    }
+    return recipes
   }
 
 }
