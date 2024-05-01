@@ -11,11 +11,12 @@ import { SharedModule } from './shared/shared.module';
 import { AppRoutingModule } from './app-routing.module';
 import { HttpClientModule } from '@angular/common/http';
 import { AuthComponent } from './auth/auth.component'
+import { LoadingSpinnerComponent } from './shared/loading-spinner/loading-spinner.component';
+import { AuthModule } from './auth/auth.module';
 
 @NgModule({
   declarations: [
     AppComponent,
-    AuthComponent,
   ],
   imports: [
     CommonModule,
@@ -25,6 +26,7 @@ import { AuthComponent } from './auth/auth.component'
     FormsModule,
     HeaderModule,
     SharedModule,
+    AuthModule,
     ReactiveFormsModule,
     AppRoutingModule,
     HttpClientModule
