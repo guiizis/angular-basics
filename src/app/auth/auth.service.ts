@@ -1,15 +1,15 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, catchError, throwError } from 'rxjs';
 import { environment } from 'src/environments/environment';
 
-interface IAuthResponseData {
+export interface IAuthResponseData {
   kind: string,
   email: string,
   refreshToken: string,
   expiresIn: string,
   localId: string,
-  registered: boolean,
+  registered?: boolean,
 }
 
 @Injectable({
@@ -26,19 +26,31 @@ export class AuthService {
       returnSecureToken: true
     }).pipe(
       catchError(errorResponse => {
-        let errorMessage = 'an unknown error occurred!'
-
-        if(!errorResponse.error || !errorResponse.error.error) {
-          return throwError(errorMessage)
-        }
-
-        switch(errorResponse.error.error.message) {
-          case 'EMAIL_EXISTS':
-            errorMessage = `This email already exists`
-        }
-
-        return throwError(errorMessage)
+        return this.handleError(errorResponse)
       })
     )
+  }
+
+  login(email: string, password: string) {
+    return this.http.post<IAuthResponseData>(environment.fireBaseAuthSignIn, {
+      email,
+      password,
+      returnSecureToken: true
+    })
+  }
+
+  private handleError(errorResponse: HttpErrorResponse) {
+    let errorMessage = 'an unknown error occurred!'
+
+    if(!errorResponse.error || !errorResponse.error.error) {
+      return throwError(errorMessage)
+    }
+
+    switch(errorResponse.error.error.message) {
+      case 'EMAIL_EXISTS':
+        errorMessage = `This email already exists`
+    }
+
+    return throwError(errorMessage)
   }
 }
