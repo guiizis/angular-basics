@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, catchError, tap, throwError } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { User } from './user.model';
+import { Router } from '@angular/router';
 
 export interface IAuthResponseData {
   kind: string,
@@ -20,7 +21,7 @@ export interface IAuthResponseData {
 export class AuthService {
   user = new BehaviorSubject<User>(null)
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private router: Router) { }
 
   singUp(email: string, password: string): Observable<IAuthResponseData> {
     return this.http.post<IAuthResponseData>(environment.fireBaseAuthSignUp, {
@@ -51,6 +52,12 @@ export class AuthService {
       })
     )
   }
+
+  logout() {
+    this.user.next(null)
+    this.router.navigate(['/auth'])
+  }
+
 
   private handleAuth(email: string, userId: string, token: string, expiresIn: number) {
     const expirationDate = new Date(new Date().getTime() + expiresIn * 1000)
