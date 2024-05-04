@@ -26,26 +26,20 @@ export class DataStorageService {
   }
 
   fetchRecipes(): Observable<Recipe[]> {
-    return this.authService.user.pipe(
-      take(1),
-      exhaustMap(user => {
-        return this.http.get<Recipe[]>(environment.fireBaseUrlRecipes, {
-          params: new HttpParams().set('auth', user.token)
+    return this.http.get<Recipe[]>(environment.fireBaseUrlRecipes)
+      .pipe(
+        map(data => {
+          return data.map(recipes => {
+            return {
+              ...recipes,
+              ingredients: recipes.ingredients ? recipes.ingredients : []
+            }
+          })
+        }
+        ),
+        tap(recipes => {
+          this.recipeService.setRecipes(recipes)
         })
-      }),
-      map(data => {
-        return data.map(recipes => {
-          return {
-            ...recipes,
-            ingredients: recipes.ingredients ? recipes.ingredients : []
-          }
-        })
-      }
-      ),
-      tap(recipes => {
-        this.recipeService.setRecipes(recipes)
-      })
-    )
+      )
   }
-
 }
