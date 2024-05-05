@@ -18,6 +18,10 @@ export class AuthComponent {
     private router: Router
   ) { }
 
+  handleClose() {
+    this.error = null
+  }
+
   onSwitchMode() {
     this.isLoginMode = !this.isLoginMode
   }
