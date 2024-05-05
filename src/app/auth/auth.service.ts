@@ -28,6 +28,8 @@ interface userData {
 export class AuthService {
   user = new BehaviorSubject<User>(null)
 
+  private tokenExpirationTime: ReturnType<typeof setTimeout>
+
   constructor(private http: HttpClient, private router: Router) { }
 
   singUp(email: string, password: string): Observable<IAuthResponseData> {
@@ -61,7 +63,6 @@ export class AuthService {
   }
 
   autoLogin() {
-
     const userData: userData = JSON.parse(localStorage.getItem('userData'))
 
     if (!userData) {
@@ -73,13 +74,30 @@ export class AuthService {
     const loadedUser = new User(email, id, _token, new Date(_tokenExpirationDate))
 
     if (loadedUser.token) {
+      const expirationDuration = new Date(_tokenExpirationDate).getTime() - new Date().getTime()
+
+      this.autoLogOut(expirationDuration)
       this.user.next(loadedUser)
     }
+  }
+
+  autoLogOut(expirationDuration: number) {
+    this.tokenExpirationTime = setTimeout(() => {
+      this.logout()
+    }, expirationDuration)
   }
 
   logout() {
     this.user.next(null)
     this.router.navigate(['/auth'])
+
+    localStorage.removeItem('userData')
+
+    if (this.tokenExpirationTime) {
+      clearTimeout(this.tokenExpirationTime)
+    }
+
+    this.tokenExpirationTime = null
   }
 
 
@@ -88,6 +106,7 @@ export class AuthService {
     const user = new User(email, userId, token, expirationDate)
 
     this.user.next(user)
+    this.autoLogOut(expiresIn * 1000)
 
     localStorage.setItem('userData', JSON.stringify(user))
   }
