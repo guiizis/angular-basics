@@ -125,6 +125,8 @@ export class AuthService {
         errorMessage = `This email was not found, try another`
       case 'INVALID_PASSWORD':
         errorMessage = `Password incorrect`
+      case 'INVALID_LOGIN_CREDENTIALS':
+        errorMessage = `Your email or password are incorrect`
     }
 
     return throwError(errorMessage)
