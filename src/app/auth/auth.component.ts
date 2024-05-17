@@ -1,9 +1,10 @@
-import { Component, ComponentFactoryResolver } from '@angular/core';
+import { Component, ComponentFactoryResolver, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { AuthService, IAuthResponseData } from './auth.service';
 import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
 import { AlertComponent } from '../shared/alert/alert.component';
+import { PlaceHolderDirective } from '../shared/placeHolder/placeHolder.directive';
 
 @Component({
   selector: 'app-auth',
@@ -13,6 +14,7 @@ export class AuthComponent {
   isLoginMode = true
   isLoading = false
   error: string = null
+  @ViewChild(PlaceHolderDirective, {static: false}) alertHost: PlaceHolderDirective
 
   constructor(
     private authService: AuthService,
@@ -61,6 +63,6 @@ export class AuthComponent {
 
   private showErrorAlert(message: string) {
     const alertCmpFactory = this.componentFactoryResolver.resolveComponentFactory(AlertComponent)
-
+    const hostViewContainerRef = this.alertHost.viewContainerRef
   }
 }
