@@ -10,16 +10,16 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from './shared/shared.module';
 import { AppRoutingModule } from './app-routing.module';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
-import { AuthComponent } from './auth/auth.component'
-import { LoadingSpinnerComponent } from './shared/loading-spinner/loading-spinner.component';
 import { AuthModule } from './auth/auth.module';
 import { AuthInterceptorService } from './auth/auth-interceptor.service';
+import { CheckBoxTestModule } from './tests/checkbox-test/checkbox-test.module';
 
 @NgModule({
   declarations: [
     AppComponent,
   ],
   imports: [
+    CheckBoxTestModule,
     CommonModule,
     BrowserModule,
     RecipeBookModule,

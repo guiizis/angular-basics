@@ -1,0 +1,16 @@
+.groups {
+  display: grid;
+  gap: 16px;
+}
+.checks-container {
+  display: grid;
+  gap: 8px;
+}
+.parent {
+  font-weight: 600;
+}
+.children {
+  display: grid;
+  gap: 4px;
+  padding-left: 12px;
+}

@@ -1,0 +1,18 @@
+<div class="groups">
+  <div class="group" *ngFor="let p of parents;">
+    <form [formGroup]="formsByParent[p.id]" class="checks-container">
+      <mat-checkbox formControlName="parent" class="parent">
+        {{ p.label }}
+      </mat-checkbox>
+      <div formGroupName="children" class="children">
+        <mat-checkbox
+          *ngFor="let ch of p.children; trackBy: trackByChild"
+          [formControlName]="ch.id"
+          class="child"
+        >
+          {{ ch.label }}
+        </mat-checkbox>
+      </div>
+    </form>
+  </div>
+</div>
